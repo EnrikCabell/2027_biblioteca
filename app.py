@@ -53,8 +53,7 @@ else:
                 )
             st.divider()
 
-st.caption("
-Initial Code and all additional changes are registered property by Juan Enrique Cabello Vargas PhD. & MSc. 
+st.caption("""Initial Code and all additional changes are registered property by Juan Enrique Cabello Vargas PhD. & MSc. 
 All Conceptualized and created by Juan Enrique Cabello Vargas PhD. & MSc. 
 All rights reserved
-Pax Et Bonum")
+Pax Et Bonum""")
