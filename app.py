@@ -53,7 +53,13 @@ else:
                 )
             st.divider()
 
-st.caption("""Initial Code and all additional changes are registered property by Juan Enrique Cabello Vargas PhD. & MSc. 
-All Conceptualized and created by Juan Enrique Cabello Vargas PhD. & MSc. 
-All rights reserved
-Pax Et Bonum""")
+st.markdown("""
+<div style="text-align: center; font-size: 12px; line-height: 1.8;">
+    Initial code and all additional changes are the property of<br>
+    Juan Enrique Cabello Vargas, PhD &amp; MSc.<br>
+    All conceptualized and created by<br>
+    Juan Enrique Cabello Vargas, PhD &amp; MSc.<br>
+    All rights reserved.<br>
+    Pax et Bonum.
+</div>
+""", unsafe_allow_html=True)
