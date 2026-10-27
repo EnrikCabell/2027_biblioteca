@@ -53,4 +53,8 @@ else:
                 )
             st.divider()
 
-st.caption("Versión inicial. El registro de usuarios y el panel privado para subir archivos se añadirán en la siguiente etapa.")
+st.caption("
+Initial Code and all additional changes are registered property by Juan Enrique Cabello Vargas PhD. & MSc. 
+All Conceptualized and created by Juan Enrique Cabello Vargas PhD. & MSc. 
+All rights reserved
+Pax Et Bonum")
