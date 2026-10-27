@@ -55,7 +55,7 @@ else:
 
 st.markdown("""
 <div style="text-align: center; font-size: 12px; line-height: 1.8;">
-    Initial code and all additional changes are the property of<br>
+    Initial code and all additional changes are property by<br>
     Juan Enrique Cabello Vargas, PhD &amp; MSc.<br>
     All conceptualized and created by<br>
     Juan Enrique Cabello Vargas, PhD &amp; MSc.<br>
