@@ -12,16 +12,19 @@
 <link rel="icon" type="image/png" href="./logo_kitACA.png">
 <title>Biblioteca académica</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif;background:#fff}header{height:48px;display:flex;align-items:center;gap:10px;padding:6px 12px;color:#1769aa;font-weight:700;border-bottom:1px solid #e5e7eb}header img{width:30px;height:30px;object-fit:contain}main{height:calc(100% - 48px)}iframe{border:0;width:100%;height:100%;display:block}#fallback{padding:24px;text-align:center}a{display:inline-block;background:#1769aa;color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#fff;color:#222}header{height:56px;display:flex;align-items:center;gap:10px;padding:8px 14px;color:#1769aa;font-weight:700;border-bottom:1px solid #e5e7eb}header img{width:34px;height:34px;object-fit:contain}main{min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}main img{width:112px;height:112px;object-fit:contain;margin-bottom:18px}h1{font-size:1.35rem;margin:0 0 18px}p{line-height:1.5;margin:0 0 22px}a{display:inline-block;background:#1769aa;color:#fff;padding:13px 20px;border-radius:8px;text-decoration:none;font-weight:700}
 </style>
 </head>
 <body>
 <header><img src="./logo_kitACA.png" alt=""><span>Biblioteca académica</span></header>
-<main><iframe id="app" title="Biblioteca académica" src="https://2027biblioteca-lhrwmtnygt6cfqbeidcwsi.streamlit.app/?embed=true" allow="clipboard-read; clipboard-write"></iframe>
-<noscript><div id="fallback">Para usar kitACA, abre la aplicación.<br><br><a href="https://2027biblioteca-lhrwmtnygt6cfqbeidcwsi.streamlit.app/">Abrir kitACA</a></div></noscript></main>
+<main>
+<img src="./logo_kitACA.png" alt="Logo kitACA">
+<h1>Biblioteca académica</h1>
+<p>Pulsa el botón para abrir tu biblioteca.</p>
+<a href="https://2027biblioteca-lhrwmtnygt6cfqbeidcwsi.streamlit.app/">Abrir kitACA</a>
+</main>
 <script>
 if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
-const frame=document.getElementById('app'); frame.addEventListener('error',()=>{document.querySelector('main').innerHTML='<div id="fallback">No se pudo cargar la biblioteca dentro de esta ventana.<br><br><a href="https://2027biblioteca-lhrwmtnygt6cfqbeidcwsi.streamlit.app/">Abrir kitACA</a></div>'});
 </script>
 </body>
 </html>
