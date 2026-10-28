@@ -5,6 +5,7 @@ import streamlit as st
 APP_DIR = Path(__file__).parent
 PDF_DIR = APP_DIR / "pdfs"
 CATALOG_FILE = APP_DIR / "catalogo.json"
+BANNER_FILE = APP_DIR / "2027_PUMABIEN.jpg"
 CATEGORIAS_BASE = ["Ciencias", "Ciencias Sociales", "Maico", "Audiología", "Administración", "Mercadotecnia", "Sustentabilidad"]
 
 ICON_FILE = APP_DIR / "logo_kitACA.png"
@@ -15,12 +16,17 @@ st.markdown("""
 :root { --primary-color: #1769aa; }
 [data-testid="stAppViewContainer"] h1, [data-testid="stAppViewContainer"] h2, [data-testid="stAppViewContainer"] h3 { color: #1769aa; }
 h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !important; }
-/* Ocultar herramientas de Streamlit, incluido Fork, sin ocultar el título de la aplicación. */
 [data-testid="stToolbar"], [data-testid="stStatusWidget"], [data-testid="stDecoration"], [data-testid="stDeployButton"], a[href*="github.com/streamlit"], button[aria-label*="Fork"], [data-testid="stAppDeployButton"] { display: none !important; }
 [data-testid="stButton"] button, [data-testid="stDownloadButton"] button { background-color: #1769aa; color: white; border-color: #1769aa; }
 [data-testid="stButton"] button:hover, [data-testid="stDownloadButton"] button:hover { background-color: #0d4f85; color: white; border-color: #0d4f85; }
 [data-baseweb="select"] > div:focus-within, [data-baseweb="input"] > div:focus-within { border-color: #1769aa; }
 </style>
+""", unsafe_allow_html=True)
+
+if BANNER_FILE.exists():
+    st.image(str(BANNER_FILE), use_container_width=True)
+
+st.markdown("""
 <div style="text-align:center; color:#1769aa; font-style:italic; font-size:18px; margin-bottom:18px;">
 Conceptualized and created by<br>Juan Enrique Cabello Vargas, PhD &amp; MSc.
 </div>
