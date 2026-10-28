@@ -15,6 +15,8 @@ st.markdown("""
 :root { --primary-color: #1769aa; }
 [data-testid="stAppViewContainer"] h1, [data-testid="stAppViewContainer"] h2, [data-testid="stAppViewContainer"] h3 { color: #1769aa; }
 h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !important; }
+/* Ocultar herramientas de Streamlit, incluido Fork, sin ocultar el título de la aplicación. */
+[data-testid="stToolbar"], [data-testid="stStatusWidget"], [data-testid="stDecoration"], [data-testid="stDeployButton"], a[href*="github.com/streamlit"], button[aria-label*="Fork"], [data-testid="stAppDeployButton"] { display: none !important; }
 [data-testid="stButton"] button, [data-testid="stDownloadButton"] button { background-color: #1769aa; color: white; border-color: #1769aa; }
 [data-testid="stButton"] button:hover, [data-testid="stDownloadButton"] button:hover { background-color: #0d4f85; color: white; border-color: #0d4f85; }
 [data-baseweb="select"] > div:focus-within, [data-baseweb="input"] > div:focus-within { border-color: #1769aa; }
