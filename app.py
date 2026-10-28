@@ -65,12 +65,12 @@ else:
             if nombre_categoria(archivo):
                 st.caption(f"Categoría: {nombre_categoria(archivo)}")
             st.write(datos.get("descripcion", "Publicación en formato PDF."))
+            contenido_pdf = archivo.read_bytes()
             try:
-                st.pdf(str(archivo), height=700)
+                st.pdf(contenido_pdf, height=700)
             except Exception:
                 st.warning("No se pudo abrir la vista previa. Puedes descargar el PDF.")
-            with archivo.open("rb") as pdf:
-                st.download_button("Descargar PDF", data=pdf.read(), file_name=archivo.name, mime="application/pdf", key=f"descarga_{archivo.relative_to(PDF_DIR)}")
+            st.download_button("Descargar PDF", data=contenido_pdf, file_name=archivo.name, mime="application/pdf", key=f"descarga_{archivo.relative_to(PDF_DIR)}")
 
 st.markdown("""
 <div style="text-align: center; font-size: 12px; line-height: 1.8;">
