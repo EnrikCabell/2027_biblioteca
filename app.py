@@ -19,7 +19,7 @@ def cargar_catalogo():
 
 def nombre_categoria(archivo):
     relativa = archivo.relative_to(PDF_DIR)
-    return relativa.parts[0] if len(relativa.parts) > 1 else "Sin categoría"
+    return relativa.parts[0] if len(relativa.parts) > 1 else ""
 
 catalogo = cargar_catalogo()
 st.title("Biblioteca digital")
@@ -30,7 +30,7 @@ for categoria_base in CATEGORIAS_BASE:
     (PDF_DIR / categoria_base).mkdir(exist_ok=True)
 
 archivos = sorted(PDF_DIR.rglob("*.pdf"), key=lambda p: str(p).lower())
-categorias = ["Todas"] + CATEGORIAS_BASE + (["Sin categoría"] if any(nombre_categoria(a) == "Sin categoría" for a in archivos) else [])
+categorias = ["Todas"] + CATEGORIAS_BASE
 categoria = st.selectbox("Categoría", categorias)
 buscar = st.text_input("Buscar publicación", placeholder="Escribe parte del título")
 
@@ -48,7 +48,8 @@ if not visibles:
 else:
     for archivo, datos, titulo in visibles:
         with st.expander(titulo):
-            st.caption(f"Categoría: {nombre_categoria(archivo)}")
+            if nombre_categoria(archivo):
+                st.caption(f"Categoría: {nombre_categoria(archivo)}")
             st.write(datos.get("descripcion", "Publicación en formato PDF."))
             try:
                 st.pdf(str(archivo), height=700)
