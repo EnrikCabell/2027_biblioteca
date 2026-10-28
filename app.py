@@ -23,7 +23,8 @@ h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !import
 [data-testid="stButton"] button:hover, [data-testid="stDownloadButton"] button:hover { background-color: #0d4f85; color: white; border-color: #0d4f85; }
 [data-baseweb="select"] > div:focus-within, [data-baseweb="input"] > div:focus-within { border-color: #1769aa; }
 @media (max-width: 640px) {
-  [data-testid="stAppViewContainer"] .block-container { padding-left: 0.65rem; padding-right: 0.65rem; }
+  [data-testid="stAppViewContainer"] .block-container { padding-top: 0.35rem !important; padding-left: 0.65rem; padding-right: 0.65rem; }
+  [data-testid="stAppViewContainer"] .main { padding-top: 0 !important; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -32,7 +33,7 @@ h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !import
 if ICON_FILE.exists():
     logo_b64 = base64.b64encode(ICON_FILE.read_bytes()).decode("ascii")
     st.markdown(f"""
-    <div style="display:flex;align-items:center;gap:10px;background:#1769aa;color:white;padding:10px 14px;border-radius:6px;margin:0 0 16px 0;">
+    <div style="display:flex;align-items:center;gap:10px;background:#1769aa;color:white;padding:8px 12px;border-radius:6px;margin:0 0 10px 0;">
       <img src="data:image/png;base64,{logo_b64}" alt="kitACA" style="width:34px;height:34px;object-fit:contain;background:white;border-radius:4px;padding:2px;">
       <span style="font-size:18px;font-weight:600;">kitACA</span>
     </div>
