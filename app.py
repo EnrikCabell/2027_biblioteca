@@ -37,7 +37,7 @@ def nombre_categoria(archivo):
     return relativa.parts[0] if len(relativa.parts) > 1 else ""
 
 catalogo = cargar_catalogo()
-st.title("kitACA")
+st.title("Biblioteca académica")
 st.write("Elige la categoría para consultar las publicaciones existentes.")
 
 PDF_DIR.mkdir(exist_ok=True)
