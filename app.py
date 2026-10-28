@@ -28,6 +28,18 @@ h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !import
 </style>
 """, unsafe_allow_html=True)
 
+# Encabezado propio para conservar nombre e identidad al ocultar la barra de Streamlit.
+if ICON_FILE.exists():
+    logo_b64 = base64.b64encode(ICON_FILE.read_bytes()).decode("ascii")
+    st.markdown(f"""
+    <div style="display:flex;align-items:center;gap:10px;background:#1769aa;color:white;padding:10px 14px;border-radius:6px;margin:0 0 16px 0;">
+      <img src="data:image/png;base64,{logo_b64}" alt="kitACA" style="width:34px;height:34px;object-fit:contain;background:white;border-radius:4px;padding:2px;">
+      <span style="font-size:18px;font-weight:600;">kitACA</span>
+    </div>
+    """, unsafe_allow_html=True)
+else:
+    st.markdown('<div style="background:#1769aa;color:white;padding:12px 14px;border-radius:6px;font-size:18px;font-weight:600;margin-bottom:16px;">kitACA</div>', unsafe_allow_html=True)
+
 if BANNER_FILE.exists():
     st.image(str(BANNER_FILE), use_container_width=True)
 
@@ -53,13 +65,9 @@ def mostrar_pdf_responsivo(contenido_pdf):
     pdf_base64 = base64.b64encode(contenido_pdf).decode("ascii")
     html = f"""
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <div style="width:100%; max-width:100%; overflow:hidden;">
-      <iframe
-        title="Vista previa del PDF"
-        src="data:application/pdf;base64,{pdf_base64}#view=FitH"
-        style="display:block; width:100%; max-width:100%; height:70vh; min-height:360px; border:0;"
-        loading="lazy">
-      </iframe>
+    <div style="width:100%;max-width:100%;overflow:hidden;">
+      <iframe title="Vista previa del PDF" src="data:application/pdf;base64,{pdf_base64}#view=FitH"
+        style="display:block;width:100%;max-width:100%;height:70vh;min-height:360px;border:0;" loading="lazy"></iframe>
     </div>
     """
     components.html(html, height=520, scrolling=False)
@@ -99,12 +107,12 @@ else:
             st.download_button("Descargar PDF", data=contenido_pdf, file_name=archivo.name, mime="application/pdf", key=f"descarga_{archivo.relative_to(PDF_DIR)}")
 
 st.markdown("""
-<div style="text-align: center; font-size: 12px; line-height: 1.8;">
-    Initial code and all additional changes are property and registered by<br>
-    Juan Enrique Cabello Vargas, PhD &amp; MSc.<br>
-    Conceptualized and created by<br>
-    Juan Enrique Cabello Vargas, PhD &amp; MSc.<br>
-    All rights reserved.<br>
-    Pax et Bonum.
+<div style="text-align:center;font-size:12px;line-height:1.8;">
+Initial code and all additional changes are property and registered by<br>
+Juan Enrique Cabello Vargas, PhD &amp; MSc.<br>
+Conceptualized and created by<br>
+Juan Enrique Cabello Vargas, PhD &amp; MSc.<br>
+All rights reserved.<br>
+Pax et Bonum.
 </div>
 """, unsafe_allow_html=True)
