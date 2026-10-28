@@ -9,6 +9,19 @@ CATEGORIAS_BASE = ["Ciencias", "Ciencias Sociales", "Maico", "Audiología", "Adm
 
 st.set_page_config(page_title="Biblioteca digital", page_icon="📚", layout="wide")
 
+st.markdown("""
+<style>
+:root { --primary-color: #1769aa; }
+[data-testid="stAppViewContainer"] h1, [data-testid="stAppViewContainer"] h2, [data-testid="stAppViewContainer"] h3 { color: #1769aa; }
+[data-testid="stButton"] button, [data-testid="stDownloadButton"] button { background-color: #1769aa; color: white; border-color: #1769aa; }
+[data-testid="stButton"] button:hover, [data-testid="stDownloadButton"] button:hover { background-color: #0d4f85; color: white; border-color: #0d4f85; }
+[data-baseweb="select"] > div:focus-within, [data-baseweb="input"] > div:focus-within { border-color: #1769aa; }
+</style>
+<div style="text-align:center; color:#1769aa; font-style:italic; font-size:18px; margin-bottom:18px;">
+Conceptualized and created by<br>Juan Enrique Cabello Vargas, PhD &amp; MSc.
+</div>
+""", unsafe_allow_html=True)
+
 def cargar_catalogo():
     if CATALOG_FILE.exists():
         try:
