@@ -5,6 +5,7 @@ import streamlit as st
 APP_DIR = Path(__file__).parent
 PDF_DIR = APP_DIR / "pdfs"
 CATALOG_FILE = APP_DIR / "catalogo.json"
+CATEGORIAS_BASE = ["Ciencias", "Ciencias Sociales", "Maico", "Audiología", "Administración", "Mercadotecnia", "Sustentabilidad"]
 
 st.set_page_config(page_title="Biblioteca digital", page_icon="📚", layout="wide")
 
@@ -18,55 +19,43 @@ def cargar_catalogo():
 
 def nombre_categoria(archivo):
     relativa = archivo.relative_to(PDF_DIR)
-    if len(relativa.parts) > 1:
-        return relativa.parts[0]
-    return "Sin categoría"
+    return relativa.parts[0] if len(relativa.parts) > 1 else "Sin categoría"
 
 catalogo = cargar_catalogo()
-
 st.title("Biblioteca digital")
-st.write("Explora las categorías y consulta cada publicación directamente en esta página.")
+st.write("Selecciona una categoría para consultar las publicaciones disponibles.")
 
 PDF_DIR.mkdir(exist_ok=True)
+for categoria_base in CATEGORIAS_BASE:
+    (PDF_DIR / categoria_base).mkdir(exist_ok=True)
+
 archivos = sorted(PDF_DIR.rglob("*.pdf"), key=lambda p: str(p).lower())
+categorias = ["Todas"] + CATEGORIAS_BASE + (["Sin categoría"] if any(nombre_categoria(a) == "Sin categoría" for a in archivos) else [])
+categoria = st.selectbox("Categoría", categorias)
+buscar = st.text_input("Buscar publicación", placeholder="Escribe parte del título")
 
-if not archivos:
-    st.info("Todavía no hay publicaciones. Coloca archivos PDF en una carpeta temática dentro de pdfs.")
+visibles = []
+for archivo in archivos:
+    datos = catalogo.get(archivo.name, {})
+    titulo = datos.get("titulo", archivo.stem.replace("_", " "))
+    coincide_categoria = categoria == "Todas" or nombre_categoria(archivo) == categoria
+    coincide_busqueda = buscar.lower() in archivo.stem.lower() or buscar.lower() in titulo.lower()
+    if coincide_categoria and coincide_busqueda:
+        visibles.append((archivo, datos, titulo))
+
+if not visibles:
+    st.info("No hay publicaciones en esta categoría todavía.")
 else:
-    categorias = sorted({nombre_categoria(a) for a in archivos}, key=str.lower)
-    categoria = st.selectbox("Categoría", ["Todas"] + categorias)
-    buscar = st.text_input("Buscar publicación", placeholder="Escribe parte del título")
-
-    visibles = []
-    for archivo in archivos:
-        datos = catalogo.get(archivo.name, {})
-        titulo = datos.get("titulo", archivo.stem.replace("_", " "))
-        coincide_categoria = categoria == "Todas" or nombre_categoria(archivo) == categoria
-        coincide_busqueda = buscar.lower() in archivo.stem.lower() or buscar.lower() in titulo.lower()
-        if coincide_categoria and coincide_busqueda:
-            visibles.append((archivo, datos, titulo))
-
-    if not visibles:
-        st.warning("No se encontraron publicaciones con esos criterios.")
-    else:
-        for archivo, datos, titulo in visibles:
-            descripcion = datos.get("descripcion", "Publicación en formato PDF.")
-            with st.expander(titulo):
-                st.caption(f"Categoría: {nombre_categoria(archivo)}")
-                st.write(descripcion)
-                try:
-                    st.pdf(str(archivo), height=700)
-                except Exception as error:
-                    st.error("No se pudo mostrar el PDF dentro de la página.")
-                    st.caption(str(error))
-                with archivo.open("rb") as pdf:
-                    st.download_button(
-                        label="Descargar PDF",
-                        data=pdf.read(),
-                        file_name=archivo.name,
-                        mime="application/pdf",
-                        key=f"descarga_{archivo.relative_to(PDF_DIR)}",
-                    )
+    for archivo, datos, titulo in visibles:
+        with st.expander(titulo):
+            st.caption(f"Categoría: {nombre_categoria(archivo)}")
+            st.write(datos.get("descripcion", "Publicación en formato PDF."))
+            try:
+                st.pdf(str(archivo), height=700)
+            except Exception:
+                st.warning("No se pudo abrir la vista previa. Puedes descargar el PDF.")
+            with archivo.open("rb") as pdf:
+                st.download_button("Descargar PDF", data=pdf.read(), file_name=archivo.name, mime="application/pdf", key=f"descarga_{archivo.relative_to(PDF_DIR)}")
 
 st.markdown("""
 <div style="text-align: center; font-size: 12px; line-height: 1.8;">
