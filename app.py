@@ -7,7 +7,7 @@ PDF_DIR = APP_DIR / "pdfs"
 CATALOG_FILE = APP_DIR / "catalogo.json"
 CATEGORIAS_BASE = ["Ciencias", "Ciencias Sociales", "Maico", "Audiología", "Administración", "Mercadotecnia", "Sustentabilidad"]
 
-ICON_FILE = PDF_DIR / "icono-192.png"
+ICON_FILE = APP_DIR / "logo_kitACA.png"
 st.set_page_config(page_title="kitACA", page_icon=str(ICON_FILE) if ICON_FILE.exists() else "📚", layout="wide")
 
 st.markdown("""
