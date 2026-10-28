@@ -1,6 +1,8 @@
+import base64
 import json
 from pathlib import Path
 import streamlit as st
+import streamlit.components.v1 as components
 
 APP_DIR = Path(__file__).parent
 PDF_DIR = APP_DIR / "pdfs"
@@ -20,6 +22,9 @@ h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !import
 [data-testid="stButton"] button, [data-testid="stDownloadButton"] button { background-color: #1769aa; color: white; border-color: #1769aa; }
 [data-testid="stButton"] button:hover, [data-testid="stDownloadButton"] button:hover { background-color: #0d4f85; color: white; border-color: #0d4f85; }
 [data-baseweb="select"] > div:focus-within, [data-baseweb="input"] > div:focus-within { border-color: #1769aa; }
+@media (max-width: 640px) {
+  [data-testid="stAppViewContainer"] .block-container { padding-left: 0.65rem; padding-right: 0.65rem; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -43,6 +48,21 @@ def cargar_catalogo():
 def nombre_categoria(archivo):
     relativa = archivo.relative_to(PDF_DIR)
     return relativa.parts[0] if len(relativa.parts) > 1 else ""
+
+def mostrar_pdf_responsivo(contenido_pdf):
+    pdf_base64 = base64.b64encode(contenido_pdf).decode("ascii")
+    html = f"""
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <div style="width:100%; max-width:100%; overflow:hidden;">
+      <iframe
+        title="Vista previa del PDF"
+        src="data:application/pdf;base64,{pdf_base64}#view=FitH"
+        style="display:block; width:100%; max-width:100%; height:70vh; min-height:360px; border:0;"
+        loading="lazy">
+      </iframe>
+    </div>
+    """
+    components.html(html, height=520, scrolling=False)
 
 catalogo = cargar_catalogo()
 st.title("Biblioteca académica")
@@ -75,10 +95,7 @@ else:
                 st.caption(f"Categoría: {nombre_categoria(archivo)}")
             st.write(datos.get("descripcion", "Publicación en formato PDF."))
             contenido_pdf = archivo.read_bytes()
-            try:
-                st.pdf(contenido_pdf, height=700)
-            except Exception:
-                st.warning("No se pudo abrir la vista previa. Puedes descargar el PDF.")
+            mostrar_pdf_responsivo(contenido_pdf)
             st.download_button("Descargar PDF", data=contenido_pdf, file_name=archivo.name, mime="application/pdf", key=f"descarga_{archivo.relative_to(PDF_DIR)}")
 
 st.markdown("""
