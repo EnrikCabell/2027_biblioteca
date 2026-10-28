@@ -82,20 +82,22 @@ for categoria_base in CATEGORIAS_BASE:
     (PDF_DIR / categoria_base).mkdir(exist_ok=True)
 
 archivos = sorted(PDF_DIR.rglob("*.pdf"), key=lambda p: str(p).lower())
-categorias = ["Todas"] + CATEGORIAS_BASE
-categoria = st.selectbox("Categoría", categorias)
+categorias = ["Selecciona una categoría"] + CATEGORIAS_BASE
+categoria = st.selectbox("Categoría", categorias, index=0)
 buscar = st.text_input("Buscar publicación", placeholder="Escribe parte del título")
 
 visibles = []
 for archivo in archivos:
     datos = catalogo.get(archivo.name, {})
     titulo = datos.get("titulo", archivo.stem.replace("_", " "))
-    coincide_categoria = categoria == "Todas" or nombre_categoria(archivo) == categoria
+    coincide_categoria = categoria != "Selecciona una categoría" and nombre_categoria(archivo) == categoria
     coincide_busqueda = buscar.lower() in archivo.stem.lower() or buscar.lower() in titulo.lower()
     if coincide_categoria and coincide_busqueda:
         visibles.append((archivo, datos, titulo))
 
-if not visibles:
+if categoria == "Selecciona una categoría":
+    st.info("Selecciona una categoría para consultar sus publicaciones.")
+elif not visibles:
     st.info("No hay publicaciones en esta categoría todavía.")
 else:
     for archivo, datos, titulo in visibles:
