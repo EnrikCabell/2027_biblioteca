@@ -7,7 +7,8 @@ PDF_DIR = APP_DIR / "pdfs"
 CATALOG_FILE = APP_DIR / "catalogo.json"
 CATEGORIAS_BASE = ["Ciencias", "Ciencias Sociales", "Maico", "Audiología", "Administración", "Mercadotecnia", "Sustentabilidad"]
 
-st.set_page_config(page_title="Biblioteca académica", page_icon="📚", layout="wide")
+ICON_FILE = PDF_DIR / "icono-192.png"
+st.set_page_config(page_title="kitACA", page_icon=str(ICON_FILE) if ICON_FILE.exists() else "📚", layout="wide")
 
 st.markdown("""
 <style>
@@ -36,7 +37,7 @@ def nombre_categoria(archivo):
     return relativa.parts[0] if len(relativa.parts) > 1 else ""
 
 catalogo = cargar_catalogo()
-st.title("Biblioteca académica")
+st.title("kitACA")
 st.write("Elige la categoría para consultar las publicaciones existentes.")
 
 PDF_DIR.mkdir(exist_ok=True)
