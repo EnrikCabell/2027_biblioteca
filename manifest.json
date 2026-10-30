@@ -1,14 +1,16 @@
 {
+  "id": "./",
   "name": "kitACA",
   "short_name": "kitACA",
   "description": "Biblioteca académica",
-  "start_url": "./",
+  "start_url": "./index.html?app=1",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#ffffff",
   "theme_color": "#1769aa",
   "icons": [
-    {"src": "./logo_kitACA.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "./logo_kitACA.png", "sizes": "512x512", "type": "image/png"}
+    {"src": "./icon-192.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"},
+    {"src": "./icon-512.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
   ]
 }
