@@ -25,22 +25,23 @@ h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !import
 @media (max-width: 640px) {
   [data-testid="stAppViewContainer"] .block-container { padding-top: 0.35rem !important; padding-left: 0.65rem; padding-right: 0.65rem; }
   [data-testid="stAppViewContainer"] .main { padding-top: 0 !important; }
-  .st-key-mobile-hidden-banner { display: none !important; }
+  .st-key-mobile-hidden-banner, .st-key-mobile-hidden-header { display: none !important; }
 }
 </style>
 """, unsafe_allow_html=True)
 
 # Encabezado propio para conservar nombre e identidad al ocultar la barra de Streamlit.
-if ICON_FILE.exists():
-    logo_b64 = base64.b64encode(ICON_FILE.read_bytes()).decode("ascii")
-    st.markdown(f"""
-    <div style="display:flex;align-items:center;gap:10px;background:#1769aa;color:white;padding:8px 12px;border-radius:6px;margin:0 0 10px 0;">
-      <img src="data:image/png;base64,{logo_b64}" alt="kitACA" style="width:34px;height:34px;object-fit:contain;background:white;border-radius:4px;padding:2px;">
-      <span style="font-size:18px;font-weight:600;">kitACA</span>
-    </div>
-    """, unsafe_allow_html=True)
-else:
-    st.markdown('<div style="background:#1769aa;color:white;padding:12px 14px;border-radius:6px;font-size:18px;font-weight:600;margin-bottom:16px;">kitACA</div>', unsafe_allow_html=True)
+with st.container(key="mobile-hidden-header"):
+    if ICON_FILE.exists():
+        logo_b64 = base64.b64encode(ICON_FILE.read_bytes()).decode("ascii")
+        st.markdown(f"""
+        <div style="display:flex;align-items:center;gap:10px;background:#1769aa;color:white;padding:8px 12px;border-radius:6px;margin:0 0 10px 0;">
+          <img src="data:image/png;base64,{logo_b64}" alt="kitACA" style="width:34px;height:34px;object-fit:contain;background:white;border-radius:4px;padding:2px;">
+          <span style="font-size:18px;font-weight:600;">kitACA</span>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown('<div style="background:#1769aa;color:white;padding:12px 14px;border-radius:6px;font-size:18px;font-weight:600;margin-bottom:16px;">kitACA</div>', unsafe_allow_html=True)
 
 if BANNER_FILE.exists():
     with st.container(key="mobile-hidden-banner"):
