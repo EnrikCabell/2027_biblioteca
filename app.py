@@ -25,7 +25,6 @@ h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !import
 @media (max-width: 640px) {
   [data-testid="stAppViewContainer"] .block-container { padding-top: 0.35rem !important; padding-left: 0.65rem; padding-right: 0.65rem; }
   [data-testid="stAppViewContainer"] .main { padding-top: 0 !important; }
-  .st-key-mobile-hidden-banner, .st-key-mobile-hidden-header { display: none !important; }
 }
 </style>
 """, unsafe_allow_html=True)
