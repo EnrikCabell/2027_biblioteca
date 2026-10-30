@@ -25,6 +25,7 @@ h1 a, h2 a, h3 a, [data-testid="stHeaderActionElements"] { display: none !import
 @media (max-width: 640px) {
   [data-testid="stAppViewContainer"] .block-container { padding-top: 0.35rem !important; padding-left: 0.65rem; padding-right: 0.65rem; }
   [data-testid="stAppViewContainer"] .main { padding-top: 0 !important; }
+  .st-key-mobile-hidden-banner { display: none !important; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -42,7 +43,8 @@ else:
     st.markdown('<div style="background:#1769aa;color:white;padding:12px 14px;border-radius:6px;font-size:18px;font-weight:600;margin-bottom:16px;">kitACA</div>', unsafe_allow_html=True)
 
 if BANNER_FILE.exists():
-    st.image(str(BANNER_FILE), use_container_width=True)
+    with st.container(key="mobile-hidden-banner"):
+        st.image(str(BANNER_FILE), use_container_width=True)
 
 st.markdown("""
 <div style="text-align:center; color:#1769aa; font-style:italic; font-size:18px; margin-bottom:18px;">
