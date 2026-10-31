@@ -26,8 +26,9 @@ jobs:
           python -m pip install --quiet Pillow
           python - <<'PY'
           from PIL import Image
-          source = Image.open("logo_kitACA.png").convert("RGBA")
+          original = Image.open("logo_kitACA.png").convert("RGBA")
           for size in (192, 512):
+              source = original.copy()
               icon = Image.new("RGBA", (size, size), (255, 255, 255, 255))
               source.thumbnail((int(size * 0.82), int(size * 0.82)), Image.Resampling.LANCZOS)
               icon.alpha_composite(source, ((size - source.width) // 2, (size - source.height) // 2))
