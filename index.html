@@ -25,7 +25,6 @@
 </main>
 <script>
 if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
-if (new URLSearchParams(location.search).get('app') === '1') location.replace('https://2027biblioteca-lhrwmtnygt6cfqbeidcwsi.streamlit.app/');
 </script>
 </body>
 </html>
